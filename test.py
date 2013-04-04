@@ -5,9 +5,12 @@ pipeline({
         'type':inElements.shape,
         'filename': 'apotheken.shp'
         },
-    'preproc':{},
-    'mapping':{},
-    'postproc':{},
+    #'preproc':{},
+    'mapping':{
+        'OBJECTID':'ref:ogdgraz',
+        'NAME':'name'
+        },
+    #'postproc':{},
     'output':{
         'type':outElements.osm,
         'filename': 'out.osm'
