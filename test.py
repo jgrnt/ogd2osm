@@ -1,19 +1,9 @@
-from ogdConv import *
 
-pipeline({
-    'input':{
-        'type':inElements.shape,
-        'filename': 'apotheken.shp'
-        },
-    #'preproc':{},
-    'mapping':{
-        'OBJECTID':'ref:ogdgraz',
-        'NAME':'name'
-        },
-    #'postproc':{},
-    'output':{
-        'type':outElements.osm,
-        'filename': 'out.osm'
-        }
-    })
+from ogdConv import pipeline
+import json
+import sys
+
+with open(sys.argv[1], 'r') as f:
+    pipeline(json.load(f))
+
      

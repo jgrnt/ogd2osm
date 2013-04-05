@@ -1,0 +1,16 @@
+{
+    "input":{
+        "type":"shape",
+        "file":[ "test/apotheken.shp","test/apotheken.dbf","test/apotheken.shx"]
+        },
+    "mapping":{
+        "OBJECTID":"ref:ogdgraz",
+        "NAME":"name"
+        },
+    "output":{
+        "type":"osm",
+        "filename": "out.osm"
+        }
+}
+
+

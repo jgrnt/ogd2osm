@@ -4,4 +4,4 @@ import ogdConv.outElements
 
 
 
-__all__ = ['pipeline','inElements','outElements']
+__all__ = ['pipeline']
