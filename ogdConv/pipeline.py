@@ -2,6 +2,7 @@ import os.path
 from functools import reduce
 import sys
 import ogdConv
+import urllib
 
 
 
@@ -38,9 +39,9 @@ class pipeline(object):
         return reduce(getattr, str.split("."), sys.modules[__name__])
 
     def parseFileParam(self,fileParam):
-        if hasattr(fileParam,'__iter__'):
+        if hasattr(fileParam,'__iter__') and not hasattr(fileParam,'keys') :
            return dict (( self.parseFileItem(f) for f in fileParam))
-        return self.parseFileItem(f)
+        return self.parseFileItem(fileParam)
 
     def parseFileItem(self,f):
         if hasattr(f, 'keys'):
@@ -49,8 +50,14 @@ class pipeline(object):
             if f.get('filename',None)!=None:
                 inputstream=open(f['filename'], 'rb')
                 ext= os.path.splitext(f['filename'])[1][1:]
+            if f.get('url',None)!=None:
+                (temp,_)=urllib.request.urlretrieve(f.get('url'))
+                inputstream=open(temp,'rb')
+                ext=f.get('ext',ext)
+                
             if f.get('type',None)!=None:
-                pass
+                fileconv=(self.str_to_class("ogdConv.file."+f['type']))(f)
+                return fileconv.read(inputstream)
             if inputstream == None:
                 raise Exception("emtpy file element %s" % f)
             return ext,inputstream

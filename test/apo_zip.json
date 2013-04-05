@@ -1,0 +1,16 @@
+{
+    "input":{
+        "type":"shape",
+        "file":{"type":"tar","filename": "test/apotheken.tar.gz"}
+        },
+    "mapping":{
+        "OBJECTID":"ref:ogdgraz",
+        "NAME":"name"
+        },
+    "output":{
+        "type":"osm",
+        "filename": "out.osm"
+        }
+}
+
+
