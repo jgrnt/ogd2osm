@@ -1,6 +1,6 @@
 
 import ogdConv.inElements.shapefile
-from osm2python.tree import Node
+from ogdConv.data import Node
 
 
 
@@ -15,13 +15,12 @@ class shape:
         for r in self.reader.shapeRecords():
             avid-=1
             if r.shape.shapeType == 1:
-                yield { 'name':'node',
-                        'attrs':{
+                n=Node({
                             'lat':r.shape.points[0][0],
                             'lon':r.shape.points[0][1],
                             'id': avid
-                            },
-                        'children':[{'name':'tag', 'attrs':{'k':x[0],'v':r.record[idx-1]}} for idx,x in enumerate(self.reader.fields)  if x[0]  not in ('DeletionFlag','XCoord','YCoord')]
-                        }
+                            })
+                n.tags={x[0]:r.record[idx-1] for idx,x in enumerate(self.reader.fields)  if x[0]  not in ('DeletionFlag','XCoord','YCoord') }
+                yield n
             else:
                 raise Exception("Unknown shape type %d" % r.shape.type)

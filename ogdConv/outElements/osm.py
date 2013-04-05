@@ -9,6 +9,6 @@ class osm:
 
     def write(self,gen):
         with open(self.filename, 'w') as f:
-            dump_osm(f, gen)
+            dump_osm(f, [g.as_dict for g in gen] )
         
             

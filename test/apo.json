@@ -3,13 +3,7 @@
         "type":"shape",
         "file":[ "test/apotheken.shp","test/apotheken.dbf","test/apotheken.shx"]
         },
-    "preproc":[{
-        "type":"split"
-        "key":"ADDRESS"
-        "matcher":""
-    }]
     "mapping":{
-        "ADDRESS1":"addr:street"
         "OBJECTID":"ref:ogdgraz",
         "NAME":"name"
         },

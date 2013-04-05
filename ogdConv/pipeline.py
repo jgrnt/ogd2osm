@@ -23,16 +23,7 @@ class pipeline(object):
         outpipe.write(data)
 
     def mapdata(self,dataItem,mapping):
-        if "children" in dataItem:
-            for i in range(len(dataItem["children"]) - 1, -1, -1):
-                if dataItem["children"][i]["name"]=="tag":
-                    if dataItem["children"][i]["attrs"]["k"] in mapping:
-                        dataItem["children"][i]["attrs"]["k"]=mapping[dataItem["children"][i]["attrs"]["k"]]
-                    else:
-                        del dataItem["children"][i]
-                        
-                        
-                
+        dataItem.tags={mapping[k]:v for k,v in dataItem.tags.items() if k in mapping}
         return dataItem
     
     def str_to_class(self,str):
