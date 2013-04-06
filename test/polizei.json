@@ -4,9 +4,36 @@
         "encoding":"latin-1",
         "file":{"type":"zip","url": "https://github.com/species/OGD-stmk-daten/blob/master/Polizeiinspektionen/Rohdaten/Polizeiinspektionen.zip?raw=true"}
         },
+    "preproc":[{
+        "type":"split",
+        "key":"Strasse",
+        "matcher":"^(.*)\\s+(.+)$"
+    },{
+        "type":"filterTag",
+        "key":"Strasse1",
+        "value":"^Nr[.]?$"
+    },{
+        "type":"join",
+        "key1":"Tel_Vorw",
+        "value1":"^0([0-9]*)",
+        "key2":"Tel_Neb",
+        "join":"+43 %s %s",
+        "newkey":"contact:tel"
+    }],
+    
     "mapping":{
-        "OBJECTID":"ref:ogdgraz",
-        "NAME":"name"
+        "OBJECTID":"ref:ogdsteiermark",
+        "Ort":"addr:city",
+        "Plz":"addr:postcode",
+        "Strasse2":"addr:housenumber",
+        "Strasse1":"addr:street",
+        "contact:tel":"contact:tel",
+        "Art_Lang":"note:type"
+        },
+    "postproc":{
+        "type":"tag",
+        "key":"amenity",
+        "value":"police"
         },
     "output":{
         "type":"osm",

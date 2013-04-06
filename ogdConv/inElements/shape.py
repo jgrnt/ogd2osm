@@ -16,8 +16,8 @@ class shape:
             avid-=1
             if r.shape.shapeType == 1:
                 n=Node({
-                            'lat':r.shape.points[0][0],
-                            'lon':r.shape.points[0][1],
+                            'lat':r.shape.points[0][1],
+                            'lon':r.shape.points[0][0],
                             'id': avid
                             })
                 n.tags={x[0]:r.record[idx-1] for idx,x in enumerate(self.reader.fields)  if x[0]  not in ('DeletionFlag','XCoord','YCoord') }

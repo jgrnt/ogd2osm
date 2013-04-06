@@ -10,18 +10,28 @@ class pipeline(object):
     
     def __init__(self,params):
         inpipe=self.str_to_class("ogdConv.inElements."+params['input']['type'])(params['input'])
-        print(self.parseFileParam(params['input']['file']))
         data=inpipe.gen(self.parseFileParam(params['input']['file']))
         if('preproc' in params):
-            val=self.str_to_class("ogdConv.inElements."+params['preproc']['type'])(params['preproc'])
-            data=val.gen(data)
-        data=[self.mapdata(d,params['mapping']) for d in data]
+            data=self.applyfilter(params['preproc'],data)
+        if 'mapping' in params:
+            data=[self.mapdata(d,params['mapping']) for d in data] 
         if('postproc' in params):
-            val=self.str_to_class("ogdConv.inElements."+params['postproc']['type'])(params['postproc'])
-            data=val.gen(data)  
+            data=self.applyfilter(params['postproc'],data)
+        
+
         outpipe=self.str_to_class("ogdConv.outElements."+params['output']['type'])(params['output'])
         outpipe.write(data)
 
+    def applyfilter(self,params,data):
+        if hasattr(params,'__iter__') and not hasattr(params,'keys') :
+            d=data
+            for i in params:
+                d=self.applyfilter(i,d)
+            return d
+        else:
+            val=self.str_to_class("ogdConv.filter."+params['type'])(**params)
+            return val.gen(data)
+        
     def mapdata(self,dataItem,mapping):
         dataItem.tags={mapping[k]:v for k,v in dataItem.tags.items() if k in mapping}
         return dataItem
