@@ -1,5 +1,5 @@
 
-from ogdConv import pipeline
+from ogd2osm import *
 import json
 import sys
 

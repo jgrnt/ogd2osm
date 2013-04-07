@@ -1,7 +1,7 @@
 import os.path
 from functools import reduce
 import sys
-import ogdConv
+import ogd2osm
 import urllib
 
 
@@ -9,7 +9,7 @@ import urllib
 class pipeline(object):
     
     def __init__(self,params):
-        inpipe=self.str_to_class("ogdConv.inElements."+params['input']['type'])(params['input'])
+        inpipe=self.str_to_class("ogd2osm.inElements."+params['input']['type'])(params['input'])
         data=inpipe.gen(self.parseFileParam(params['input']['file']))
         if('preproc' in params):
             data=self.applyfilter(params['preproc'],data)
@@ -19,7 +19,7 @@ class pipeline(object):
             data=self.applyfilter(params['postproc'],data)
         
 
-        outpipe=self.str_to_class("ogdConv.outElements."+params['output']['type'])(params['output'])
+        outpipe=self.str_to_class("ogd2osm.outElements."+params['output']['type'])(params['output'])
         outpipe.write(data)
 
     def applyfilter(self,params,data):
@@ -29,7 +29,7 @@ class pipeline(object):
                 d=self.applyfilter(i,d)
             return d
         else:
-            val=self.str_to_class("ogdConv.filter."+params['type'])(**params)
+            val=self.str_to_class("ogd2osm.filter."+params['type'])(**params)
             return val.gen(data)
         
     def mapdata(self,dataItem,mapping):
@@ -57,7 +57,7 @@ class pipeline(object):
                 ext=f.get('ext',ext)
                 
             if f.get('type',None)!=None:
-                fileconv=(self.str_to_class("ogdConv.file."+f['type']))(f)
+                fileconv=(self.str_to_class("ogd2osm.file."+f['type']))(f)
                 return fileconv.read(inputstream)
             if inputstream == None:
                 raise Exception("emtpy file element %s" % f)
