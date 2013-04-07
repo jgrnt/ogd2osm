@@ -2,7 +2,7 @@ import os.path
 from functools import reduce
 import sys
 import ogd2osm
-import urllib
+import urllib.request
 
 
 

@@ -1,0 +1,3 @@
+[submodule "python-osm"]
+	path = python-osm
+	url = git@github.com:jgrnt/python-osm.git

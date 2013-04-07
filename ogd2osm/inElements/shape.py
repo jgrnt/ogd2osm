@@ -1,6 +1,6 @@
 
 from .shapefile import *
-from ..data import Node
+from osm import pyosm
 
 
 
@@ -15,12 +15,11 @@ class shape:
         for r in self.reader.shapeRecords():
             avid-=1
             if r.shape.shapeType == 1:
-                n=Node({
+                n=pyosm.Node({
                             'lat':r.shape.points[0][1],
                             'lon':r.shape.points[0][0],
-                            'id': avid
-                            })
-                n.tags={x[0]:r.record[idx-1] for idx,x in enumerate(self.reader.fields)  if x[0]  not in ('DeletionFlag','XCoord','YCoord') }
+                            'id': str(avid)
+                            },tags={x[0]:str(r.record[idx-1]) for idx,x in enumerate(self.reader.fields)  if x[0]  not in ('DeletionFlag','XCoord','YCoord') })
                 yield n
             else:
                 raise Exception("Unknown shape type %d" % r.shape.type)

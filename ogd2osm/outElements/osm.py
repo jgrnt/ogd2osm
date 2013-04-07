@@ -1,4 +1,5 @@
-from osm2python import dump_osm
+
+from osm import pyosm
 
 
 class osm:
@@ -9,6 +10,8 @@ class osm:
 
     def write(self,gen):
         with open(self.filename, 'w') as f:
-            dump_osm(f, [g.as_dict for g in gen] )
+            doc=pyosm.OSMXMLFile()
+            doc.nodes={str(g.id):g for g in gen if  isinstance(g, pyosm.Node)} 
+            doc.write(f)
         
             
