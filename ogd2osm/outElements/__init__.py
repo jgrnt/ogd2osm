@@ -1,4 +1,4 @@
 from .stdout  import *
-
-from .osm import *
+from .osmFile import *
+from .osmSplit import *
 

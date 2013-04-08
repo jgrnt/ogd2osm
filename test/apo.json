@@ -8,7 +8,7 @@
         "NAME":"name"
         },
     "output":{
-        "type":"osm",
+        "type":"osmFile",
         "filename": "out.osm"
         }
 }

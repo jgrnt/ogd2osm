@@ -2,10 +2,10 @@
 from osm import pyosm
 
 
-class osm:
+class osmFile:
 
-    def __init__(self,param):
-        self.filename=param['filename']
+    def __init__(self,filename):
+        self.filename=filename
 
 
     def write(self,gen):

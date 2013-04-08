@@ -19,7 +19,7 @@ class pipeline(object):
             data=self.applyfilter(params['postproc'],data)
         
 
-        outpipe=self.str_to_class("ogd2osm.outElements."+params['output']['type'])(params['output'])
+        outpipe=self.str_to_class("ogd2osm.outElements."+params['output'].pop('type'))(**(params['output']))
         outpipe.write(data)
 
     def applyfilter(self,params,data):
