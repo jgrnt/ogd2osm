@@ -33,7 +33,12 @@ class osmSplit:
             val=set(g for g,i in zip(gen,matches) if i)
             rels[rel]=val
             gen=gen-val
-        notfiltered=gen
+
+        if gen:
+            with open(self.dir+"/not_split.osm", 'w') as f:
+                doc=pyosm.OSMXMLFile()
+                doc.nodes={str(g.id):g for g in gen if  isinstance(g, pyosm.Node)} 
+                doc.write(f)
 
 
         for r,elements in rels.items():
@@ -42,6 +47,7 @@ class osmSplit:
                     doc=pyosm.OSMXMLFile()
                     doc.nodes={str(g.id):g for g in elements if  isinstance(g, pyosm.Node)} 
                     doc.write(f)
+                    
 
         
             
