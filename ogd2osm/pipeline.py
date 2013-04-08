@@ -17,9 +17,16 @@ class pipeline(object):
             data=[self.mapdata(d,params['mapping']) for d in data] 
         if('postproc' in params):
             data=self.applyfilter(params['postproc'],data)
-        
 
-        outpipe=self.str_to_class("ogd2osm.outElements."+params['output'].pop('type'))(**(params['output']))
+        if hasattr(params['output'], 'keys'):
+            self.output(data,params['output'])
+        else:
+            for a in params['output']:
+                self.output(data,a)
+            
+
+    def output(self,data,params):
+        outpipe=self.str_to_class("ogd2osm.outElements."+params.pop('type'))(**(params))
         outpipe.write(data)
 
     def applyfilter(self,params,data):

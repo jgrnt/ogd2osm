@@ -35,12 +35,15 @@
         "key":"amenity",
         "value":"police"
         },
-    "output":{
+    "output":[{
         "type":"osmSplit",
         "query":"http://overpass-api.de/api/interpreter?data=%28relation%5B%22boundary%22%3D%22administrative%22%5D%5B%22admin%5Flevel%22%3D%226%22%5D%5B%22is%5Fin%22%3D%22Steiermark%2C%C3%96sterreich%2CEurope%22%5D%2846%2E492719928122746%2C13%2E463745117187498%2C47%2E97705279557946%2C16%2E2158203125%29%3B%29%3B%28%2E%5F%3B%3E%3B%29%3Bout%3B",
         "querycache":"boundary_stmk.osm",
         "dirname": "polizei"
-        }
+        },{
+        "type":"osmFile",
+        "filename":"polizei.osm"
+        }]
 }
 
 
