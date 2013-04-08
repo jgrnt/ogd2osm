@@ -21,6 +21,7 @@ class pipeline(object):
         if hasattr(params['output'], 'keys'):
             self.output(data,params['output'])
         else:
+            data=list(data)
             for a in params['output']:
                 self.output(data,a)
             
