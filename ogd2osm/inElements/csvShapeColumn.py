@@ -25,8 +25,8 @@ class csvShapeColumn:
             if res:
                 
                 n=pyosm.Node({
-                            'lat':res.group(1),
-                            'lon':res.group(2),
+                            'lat':res.group(2),
+                            'lon':res.group(1),
                             'id': str(avid)
                             },tags={k:v for k,v in zip(cols,vals)  if k  not in ('SHAPE') })
                 yield n
